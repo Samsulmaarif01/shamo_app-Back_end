@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\APIUserController;
 use App\Http\Controllers\APIProductController;
 use App\Http\Controllers\APIProductCategoriesController;
+use App\Http\Controllers\APITransactionController;
 use Illuminate\Validation\ValidationException;
 
 // Route to fetch current user data
@@ -28,6 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('user/profile', [APIUserController::class, 'updateProfile']);
     Route::post('logout', [APIUserController::class, 'logout']);
 
-    Route::get('transactions', [TransactionController::class, 'all']);
-    Route::post('checkout', TransactionController::class, 'checkout');
+    Route::get('transactions', [APITransactionController::class, 'all']);
+    Route::post('checkout', [APITransactionController::class, 'checkout']);
 });
