@@ -5,11 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage; 
 
 class ProductGallery extends Model
 {
     use HasFactory, SoftDeletes;
-      /**
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -18,7 +20,14 @@ class ProductGallery extends Model
         'products_id',
         'url',
     ];
-    public function getUrlGetAtribut($url)
+
+    /**
+     * Accessor for the URL attribute.
+     *
+     * @param string $url
+     * @return string
+     */
+    public function getUrlAttribute($url)
     {
         return config('app.url') . Storage::url($url);
     }

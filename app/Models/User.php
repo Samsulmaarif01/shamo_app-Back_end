@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -27,7 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'username',
-        'phone_number',
+        'phone',
         'roles',
         'password',
     ];
@@ -58,15 +57,20 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    public function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
     }
-    public function transactions() 
+
+    /**
+     * Get the transactions for the user.
+     */
+    public function transactions()
     {
-        return $this->hasMany(Transactions::class, 'users_id', 'id');
+        return $this->hasMany(Transaction::class, 'users_id', 'id');
     }
 }
+

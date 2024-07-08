@@ -18,8 +18,12 @@ class ProductCategory extends Model
     protected $fillable = [
         'name',
     ];
-    public function products() 
+
+    /**
+     * Get the products for the category.
+     */
+    public function products()
     {
-        return $this->hasMany(Transactions::class, 'categories_id', 'id');
+        return $this->hasMany(Product::class, 'categories_id', 'id');
     }
 }

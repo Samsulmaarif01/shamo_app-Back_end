@@ -17,17 +17,25 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
-        'descriptions',
+        'description', // perbaiki dari 'descriptions' ke 'description'
         'price',
-        'product_categories_id',
+        'product_categories_id', // sesuaikan nama kolom untuk kategori produk
         'tags',
     ];
+
+    /**
+     * Get the galleries for the product.
+     */
     public function galleries()
     {
         return $this->hasMany(ProductGallery::class, 'products_id', 'id');
     }
+
+    /**
+     * Get the category that owns the product.
+     */
     public function category()
     {
-        return $this->belongsTo(ProductCategory::class, 'categories_id', 'id');
+        return $this->belongsTo(ProductCategory::class, 'product_categories_id', 'id'); 
     }
 }

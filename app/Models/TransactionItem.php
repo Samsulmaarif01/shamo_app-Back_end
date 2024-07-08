@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product; 
 
 class TransactionItem extends Model
 {
     use HasFactory;
-         /**
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
@@ -19,8 +21,12 @@ class TransactionItem extends Model
         'transactions_id',
         'quantity',
     ];
+
+    /**
+     * Get the product that owns the transaction item.
+     */
     public function product()
     {
-        return $this->hasOne(Product::class, 'id', 'products_id');
+        return $this->belongsTo(Product::class, 'products_id', 'id');
     }
 }

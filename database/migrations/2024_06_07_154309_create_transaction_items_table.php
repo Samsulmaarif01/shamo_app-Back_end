@@ -13,11 +13,21 @@ return new class extends Migration
     {
         Schema::create('transaction_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('users_id');
-            $table->bigInteger('products_id');
-            $table->bigInteger('transactions_id');
+            $table->bigInteger('users_id')->unsigned(); // Menentukan bahwa ini adalah foreign key
+            $table->bigInteger('products_id')->unsigned(); // Menentukan bahwa ini adalah foreign key
+            $table->bigInteger('transactions_id')->unsigned(); // Menentukan bahwa ini adalah foreign key
             $table->bigInteger('quantity');
             $table->timestamps();
+
+            // Menambahkan foreign key constraint
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('products_id')->references('id')->on('products');
+            $table->foreign('transactions_id')->references('id')->on('transactions');
+
+            // Menambahkan indeks jika perlu untuk kolom users_id, products_id, atau transactions_id
+            // $table->index('users_id');
+            // $table->index('products_id');
+            // $table->index('transactions_id');
         });
     }
 

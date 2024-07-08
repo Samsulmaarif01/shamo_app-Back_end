@@ -17,9 +17,13 @@ return new class extends Migration
             $table->float('price');
             $table->longText('description');
             $table->string('tags')->nullable();
-            $table->bigInteger('categories_id');
+            $table->bigInteger('categories_id')->unsigned(); // Menentukan bahwa ini adalah foreign key
+            $table->foreign('categories_id')->references('id')->on('product_categories'); // Menambahkan foreign key constraint
             $table->softDeletes();
             $table->timestamps();
+
+            // Menambahkan indeks jika perlu untuk kolom categories_id
+            // $table->index('categories_id');
         });
     }
 
